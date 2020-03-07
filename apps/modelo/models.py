@@ -7,8 +7,8 @@ class Genero(models.Model):
     genero_id= models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, help_text="Ingrese el nombre del género (p. ej. Ciencia Ficción, Poesía Francesa etc.)")
 
-    def _str_(self):
-        return self.name
+    def __str__(self):
+        return self.nombre
 	
 
 class Lenguaje(models.Model):
@@ -16,7 +16,7 @@ class Lenguaje(models.Model):
     idioma = models.CharField(max_length=200,
                             help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
 
-    def _str_(self):
+    def __str__(self):
         return self.idioma
 
 
@@ -33,7 +33,7 @@ class Autor(models.Model):
     def get_absolute_url(self):
         return reverse('autor_detalle', args=[str(self.autor_id)])
 
-    def _str_(self):
+    def __str__(self):
         return "%s %s" %(self.nombre, self.apellido)
 
 
@@ -50,10 +50,10 @@ class Libro(models.Model):
     #editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
     genero = models.ManyToManyField(Genero, help_text="Seleccione un genero para este libro")
     isbn = models.CharField('ISBN',max_length=13, help_text='13 Caracteres <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
-    imagen = models.ImageField(upload_to="libros", null=True)
+    imagen = models.ImageField(upload_to="portadas/", null=True)
     resumen = models.TextField(blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.titulo
 
     def get_absolute_url(self):
@@ -85,6 +85,6 @@ class LibroInstancia(models.Model):
         ordering = ["fecha_devolucion"]
         permissions = (("can_mark_returned", "Set book as returned"),)
         
-    def _str_(self):
+    def __str__(self):
         return '{0} ({1})'.format(self.libroinstancia_id, self.libro.titulo)
 	

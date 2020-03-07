@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- jquery minificado -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!--Materialize-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <!--Iconos de Materialize-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+
+<body style="display:flex; min-height:100vh; flex-direction:column;">
+    <header>
+        <!-- Menu principal -->
+        <nav>
+            <div class="nav-wrapper teal darken-1">
+                <a href="{% url 'index' %}" class="brand-logo">Bienvenido</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li class="activate"><a href="{% url 'index' %}">Inicio</a></li>
+                    <li><a href="{% url 'crear' %}">Crear Libro</a></li>
+                    {# <!--definir inicio de sesion-->#}
+                    <li><a href="" > Bienvenido {{ user.username | upper }}</a></li>
+                </ul>
+                <ul id="mobile-demo" class="side-nav">
+                    <li class="activate"><a href="{% url 'index' %}">Inicio</a></li>
+                    <li><a href="{% url 'crear' %}">Crear Libro</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!--fin menu principal -->
+    </header>
+
+    <main style="flex: 1 0 auto;">
+        <div class="container">
+            <div class="divider"></div>
+            <div class="section">
+                <h4>{% block section_name %}{% endblock section_name %}</h4>
+                <p>{% block section_description %}{% endblock section_description %}</p>
+            </div>
+            {% block main %}
+            <!--Contenido especifico de cada template-->
+            {% endblock main %}
+        </div>
+    </main>
+    <!--footer inicio -->
+    <footer class="page-footer teal darken-1">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Anderson Quizhpe
+            </div>
+        </div>
+    </footer>
+    <!--  footer fin -->
+    <!-- Configuracion e inicializaciones Javascript -->
+    <script>
+        //Menu desplegable, necesario para activar el menu 
+        //en un tamanio responsivo
+        $(document).ready(function () {
+            $('.button-collapse').sideNav();
+        });
+    </script>
+</body>
+
+</html>
