@@ -46,7 +46,7 @@ def updateAutor(request):
     context = {
         'formulario': formulario,
     }
-    return render(request, 'autor/uc_autor.html', context)
+    return render(request, 'autor/uc_autorE.html', context)
 
 def eliminar(request, id):
     autor = Autor.objects.get(autor_id=id)

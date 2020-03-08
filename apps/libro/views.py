@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from apps.modelo.models import Genero, Libro, Lenguaje, Autor, LibroInstancia
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import FormularioLibro, FormularioModificarLibro
+from django.contrib import messages
 from django.views import generic
 
 from django.urls import reverse_lazy
@@ -89,18 +90,3 @@ def eliminarLibro(request, id):
 	libro = Libro.objects.get(libro_id=id)
 	libro.delete()
 	return redirect('/libros')
-
-"""class LibroCreateView(generic.CreateView):
-	model = Libro
-	#Caracteristicas especiales para el form de crear
-	form_class = FormularioLibro
-	template_name = 'libreria/uc_libro.html'
-
-class LibroUpdateView(generic.UpdateView):
-	model = Libro
-	form_class = FormularioLibro
-	template_name = 'libreria/uc_libro.html'	
-
-class LibroDeleteView(generic.DeleteView):
-	model = Libro
-	success_url = reverse_lazy('libros')"""

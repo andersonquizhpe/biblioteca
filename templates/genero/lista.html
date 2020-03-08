@@ -3,40 +3,32 @@
 <!--cargamos archivos estaticos-->
 {% load staticfiles %}
 <!--llenamos los huecos definidos en base.html-->
-{% block title %}Autores{% endblock title %}
-{% block section_name %}Autores{% endblock section_name %}
-{% block section_description %}Lista de Autores{% endblock section_description %}
+{% block title %}Generos{% endblock title %}
+{% block section_name %}Generos{% endblock section_name %}
+{% block section_description %}Lista de Generos{% endblock section_description %}
 
 {% block main %}
-<a href="crearAutor/" style="text-decoration:none" class="btn btn-primary">Añadir Autor</a>
+<a href="/genero/crearGenero" style="text-decoration:none" class="btn btn-primary">Añadir Genero</a>
 <br>
 <br>
 
 {% if lista %}
-<table class="hoverable" id="tablaAutores">
+<table class="hoverable" id="tablaGenero">
   <thead class="hoverable blue-grey lighten-3">
     <tr>
       <th>N°</th>
-      <th>Apellidos</th>
-      <th>Nombres</th>
-      <th>Email</th>
+      <th>Nombre</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody class="blue-grey lighten-5">
     {% for c in lista%}
     <tr>
-      <td><a href="modificarAutor?id={{c.autor_id}}">{{forloop.counter}}</a></td>
-      <td>{{c.apellido}}</td>
+      <td><a href="modificar?id={{c.genero_id}}">{{forloop.counter}}</a></td>
       <td>{{c.nombre}}</td>
-      {% if c.email != '' %}
-      <td>{{c.email}}</td>
-      {% else %}
-      <td>S/E</td>
-      {% endif %}
       <td>
         <button class="btn btn-danger" type="submit">
-          <a href="{% url 'eliminar' c.pk %}" onClick="return confirm('¿Seguro que quieres borrar el registro?');">
+          <a href="{% url 'deleteGenero' c.pk %}" onClick="return confirm('¿Seguro que quieres borrar el registro?');">
             Eliminar
           </a>
         </button>
@@ -51,7 +43,7 @@
   <div class="col s12 m6 l6 offset-l3">
     <div class="card blue-grey lighten-3">
       <div class="card-content black-text">
-        <span class="card-title black-text"><strong>No se han registrado Autores</strong></span>
+        <span class="card-title black-text"><strong>No se han registrado Generos</strong></span>
       </div>
       <div class="card-action">
         {% if  user.is_authenticated%}

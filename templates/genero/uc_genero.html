@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Genero{% endblock title %}
+{% block section_name %}¡ Añadir nuevo Genero!{% endblock section_name %}
+{% block main %}
+  <form  method='POST'>{% csrf_token %}
+    <div class="row">
+      <div class=" col s12">
+        {% for field in formulario%}
+              <div class="form_group">
+                  {{field.label_tag}} <br>{{field.help_text|safe}} {{field}} 
+              </div>
+              {% endfor %}
+          
+          <div class="card-action">
+            <button class="btn waves-effect waves-light  blue-grey" type="submit" name="crear" value="crear">Enviar</button>  
+            <a class="btn waves-effect waves-light  blue-grey white-text"
+             href="{% url 'genero' %}">Cancelar</a>
+          </div>
+      </div>
+    </div>        
+  </form>
+  <script>
+    // Para el correcto funcionamiento de los desplegables presentes en el formulario select
+    // se debe de incluir este script
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
+{% endblock main %}

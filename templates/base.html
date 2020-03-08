@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!-- jquery minificado -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <!--Materialize-->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
@@ -27,30 +30,33 @@
                 <ul class="right hide-on-med-and-down">
                     <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
                     {% if user.is_authenticated %}
-                    
+
                     {# <!--definir inicio de sesion-->#}
-                    <li><a href="/libros" > Libros</a></li>
-                    <li><a href="/autor" > Autores</a></li>
-                    <li><a href="" > Bienvenido {{ user.username | upper }}</a></li>
-                    <li><a href="" > Cerrar Sesion</a></li>
+                    
+                    <li><a href="/autor"> Autores</a></li>
+                    <li><a href="/genero"> Generos</a></li>
+                    <li><a href="/libros"> Libros</a></li>
+                    <li><a href=""> Bienvenido {{ user.username | upper }}</a></li>
+                    <li><a href=""> Cerrar Sesion</a></li>
                     {% else %}
                     <li>
-                        <a  href="/login">Inicie Sesion</a>
-                      </li>
+                        <a href="/login">Inicie Sesion</a>
+                    </li>
                     {% endif %}
                 </ul>
                 <ul id="mobile-demo" class="side-nav">
                     <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="/libros" > Libros</a></li>
-                    <li><a href="/autor" > Autores</a></li>
+                    <li><a href="/autor"> Autores</a></li>
+                    <li><a href="/genero"> Generos</a></li>
+                    <li><a href="/libros"> Libros</a></li>
                     {# <!--definir inicio de sesion-->#}
-                    <li><a href="" > Bienvenido {{ user.username | upper }}</a></li>
-                    <li><a href="" > Cerrar Sesion</a></li>
+                    <li><a href=""> Bienvenido {{ user.username | upper }}</a></li>
+                    <li><a href=""> Cerrar Sesion</a></li>
                     {% else %}
                     <li>
-                        <a  href="/login">Inicie Sesion</a>
-                      </li>
+                        <a href="/login">Inicie Sesion</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -85,6 +91,53 @@
         //en un tamanio responsivo
         $(document).ready(function () {
             $('.button-collapse').sideNav();
+
+            $('#tablaGenero').DataTable({
+                "pagingType": "numbers",
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+            });
+            $('#tablaAutores').DataTable({
+                "pagingType": "numbers",
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+            });
         });
     </script>
 </body>
