@@ -1,1 +1,7 @@
-no tienes acceso
+{% extends "base.html" %}
+{% block title %}Sin Permisos{% endblock title %}
+{% block section_name %}¡ No tiene Permisos!{% endblock section_name %}
+{% block main %}
+  
+  <p><a href="/">Inicie sesion </a>como miembro de administracion para continuar</p>
+{% endblock main %}

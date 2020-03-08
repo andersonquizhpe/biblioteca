@@ -32,30 +32,41 @@
                     {% if user.is_authenticated %}
 
                     {# <!--definir inicio de sesion-->#}
+
+                    {% for group in user.groups.all %}
+                        {% if group.name == 'administracion'  %}
+                        <li><a href="/autor"> Autores</a></li>
+                        <li><a href="/genero"> Generos</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+
                     
-                    <li><a href="/autor"> Autores</a></li>
-                    <li><a href="/genero"> Generos</a></li>
                     <li><a href="/libros"> Libros</a></li>
                     <li><a href=""> Bienvenido {{ user.username | upper }}</a></li>
-                    <li><a href=""> Cerrar Sesion</a></li>
+                    <li><a href="/logout"> Cerrar Sesion</a></li>
                     {% else %}
                     <li>
-                        <a href="/login">Inicie Sesion</a>
+                        <a href="/">Inicie Sesion</a>
                     </li>
                     {% endif %}
                 </ul>
                 <ul id="mobile-demo" class="side-nav">
                     <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
                     {% if user.is_authenticated %}
-                    <li><a href="/autor"> Autores</a></li>
-                    <li><a href="/genero"> Generos</a></li>
+                    {% for group in user.groups.all %}
+                        {% if group.name == 'administracion'  %}
+                        <li><a href="/autor"> Autores</a></li>
+                        <li><a href="/genero"> Generos</a></li>
+                        {% endif %}
+                    {% endfor %}
                     <li><a href="/libros"> Libros</a></li>
                     {# <!--definir inicio de sesion-->#}
                     <li><a href=""> Bienvenido {{ user.username | upper }}</a></li>
-                    <li><a href=""> Cerrar Sesion</a></li>
+                    <li><a href="/logout"> Cerrar Sesion</a></li>
                     {% else %}
                     <li>
-                        <a href="/login">Inicie Sesion</a>
+                        <a href="/">Inicie Sesion</a>
                     </li>
                     {% endif %}
                 </ul>

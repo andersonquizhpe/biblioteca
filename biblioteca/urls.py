@@ -24,7 +24,7 @@ from .import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homePage),
+    path('', include('apps.usuario.urls')),
     path('libros/', include('apps.libro.urls')),
     path('autor/', include('apps.autor.urls')),
     path('genero/', include('apps.genero.urls')),

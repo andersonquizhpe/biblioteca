@@ -36,7 +36,7 @@
           <th>S/A</th>
           {% endif %}
 
-          
+
           <th>{{ object.nombre_editorial }}</th>
           <th>{{ object.fechaPublicacion }}</th>
           <th>{{ object.genero }}</th>
@@ -50,9 +50,14 @@
       </div>
     </div>
     {% if user.is_authenticated %}
-    <a href="{% url 'delete' object.pk %}" class="btn-floating waves-effect waves-light tooltipped teal darken-1"
-      data-tooltip="Eliminar Libro" data-position="right"
-      onClick="return confirm('¿Seguro que quieres borrar el registro?');"><i class="material-icons">delete</i></a>
+      {% for group in user.groups.all %}
+        {% if group.name == 'administracion'  %}
+        <a href="{% url 'delete' object.pk %}" class="btn-floating waves-effect waves-light tooltipped teal darken-1"
+        data-tooltip="Eliminar Libro" data-position="right"
+        onClick="return confirm('¿Seguro que quieres borrar el registro?');"><i class="material-icons">delete</i></a>
+        {% endif %}
+      {% endfor %}
+      {# solicitar #}
     {% endif %}
   </div>
 </div>
