@@ -3,43 +3,57 @@
 {% block title %}Detalles{% endblock title %}
 {% block section_name %}Detalles{% endblock section_name %}
 {% block main %}
-  <div class="row">
-    <div class="col s12 l4 m5">
-      <div class="card hoverable" width="100px" height="200px">
-            <div class="card-image">
-              <img src="{% static object.portada %}">
-            </div>
-            <div class="card-content blue-grey lighten-5">
-              <span class="card-title" style="color:#546e7a;"><strong>{{  object.titulo }}</strong></span>
-            </div>  
-        </div>
-    </div>
-    <div class="col s12 l8 m7">
-      <table class="hoverable">
-        <thead class="hoverable blue-grey lighten-3">
-          <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Editorial</th>
-            <th>Fecha de publicación</th>
-          </tr>
-            </thead>
-            <tbody class="blue-grey lighten-5">
-              <tr>
-                <th>{{object.titulo }}</th>
-                <th>{{ object.autor }}</th>
-                <th>{{ object.nombreEditorial }}</th>
-                <th>{{ object.fechaPublicacion }}</th>
-              </tr>
-            </tbody>
-      </table>
-      <div class="row">
-        <div class="col l12 m12 s12 ">
-          <h3>Resumen</h3>
-          <p>{{ object.resumen }}</p>  
-        </div>
+<div class="row">
+  <div class="col s12 l4 m5">
+    <div class="card hoverable" width="100px" height="200px">
+      <div class="card-image">
+
+        <a href="{{object.imagen.url}}"><img src="{{object.imagen.url}}"></a>
       </div>
-        <a href="{% url 'delete' object.pk %}" class="btn-floating waves-effect waves-light tooltipped teal darken-1" data-tooltip="Eliminar Libro"data-position="right"><i class="material-icons">delete</i></a>
+      <div class="card-content blue-grey lighten-5">
+        <span class="card-title" style="color:#546e7a;"><strong>{{  object.titulo }}</strong></span><br>
+        <span class="card-body" style="color:#546e7a;"><strong>{{  object.isbn }}</strong></span>
+      </div>
     </div>
   </div>
+  <div class="col s12 l8 m7">
+    <table class="hoverable">
+      <thead class="hoverable blue-grey lighten-3">
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Editorial</th>
+          <th>Fecha de publicación</th>
+          <th>Genero</th>
+        </tr>
+      </thead>
+      <tbody class="blue-grey lighten-5">
+        <tr>
+          <th>{{object.titulo }}</th>
+          {% if libro.autor != NULL%}
+          <th>{{ object.autor }}</th>
+          {% else %}
+          <th>S/A</th>
+          {% endif %}
+
+          
+          <th>{{ object.nombre_editorial }}</th>
+          <th>{{ object.fechaPublicacion }}</th>
+          <th>{{ object.genero }}</th>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col l12 m12 s12 ">
+        <h3>Resumen</h3>
+        <p>{{ object.resumen }}</p>
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'delete' object.pk %}" class="btn-floating waves-effect waves-light tooltipped teal darken-1"
+      data-tooltip="Eliminar Libro" data-position="right"
+      onClick="return confirm('¿Seguro que quieres borrar el registro?');"><i class="material-icons">delete</i></a>
+    {% endif %}
+  </div>
+</div>
 {% endblock main %}

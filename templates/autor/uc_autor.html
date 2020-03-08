@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Nuevo Libro{% endblock title %}
-{% block section_name %}¡ Resgistre un nuevo libro !{% endblock section_name %}
+{% block title %}Sitio Lecutra{% endblock title %}
+{% block section_name %}¡ Añadir nuevo Autor!{% endblock section_name %}
 {% block main %}
-  <form enctype="multipart/form-data" method='POST'>{% csrf_token %}
+  <form  method='POST'>{% csrf_token %}
     <div class="row">
       <div class=" col s12">
         {% for field in formulario%}
@@ -14,7 +14,7 @@
           <div class="card-action">
             <button class="btn waves-effect waves-light  blue-grey" type="submit" name="crear" value="crear">Enviar</button>  
             <a class="btn waves-effect waves-light  blue-grey white-text"
-             href="{% url 'libros' %}">Cancelar</a>
+             href="{% url 'autor' %}">Cancelar</a>
           </div>
       </div>
     </div>        

@@ -8,28 +8,34 @@
 {% block section_description %}Catálogo de libros disponibles{% endblock section_description %}
 
 {% block main %}
+<a href="crear/" style="text-decoration:none" class="btn btn-primary">Añadir Libro</a>
 <div class="row">
 {% for libro in lista  %}<!--object_list es el nombre que django da por default a la lista donde estan los objetos (en este caso libros) -->
   <!-- los libros de la bd se muestran en una tarjeta de imagen de materialize -->
   <div class="col s12 m4">
     <div class="card blue-grey lighten-3">
       <div class="card-image">
-        <img src="{{libro.imagen}}" width="100px" height="200px">
+        <img src="{{libro.imagen.url}}" width="100px" height="200px">
       </div>
       <div class="card-content">
         <ul>
-            
-          {#{% for autor in libro.autor %} #}  
+          
           <li><strong>Título:</strong>{{ libro.titulo }}</li>
+          {% if libro.autor != NULL%}
           <li><strong>Autor: </strong>{{ libro.autor.nombre }} {{ libro.autor.apellido }}</li>
-          {#{% endfor %}<!--fin for interno-->#}
+          {% else %}
+          <li><strong>Autor: </strong>S/A</li>
+          {% endif %}
           <li><strong>Editorial: </strong>{{ libro.nombre_editorial }}</li>
           <li><strong>Fecha de publicación: </strong>{{ libro.fechaPublicacion }}</li>
         </ul>
       </div>
       <div class="card-action">
-        <a href="{% url 'update' libro.pk %}"><span class="blue-grey-text">Editar libro</span></a>
-        <a href="{% url 'detail-book' libro.pk %}"><span class="blue-grey-text">Ver Detalles</span></a>
+        {% if user.is_authenticated %}
+       <a href="modificar?id={{libro.libro_id}}"><span class="blue-grey-text">Editar libro</span></a> 
+        
+        <a href="{% url 'getLibro' id=libro.libro_id%}"><span class="blue-grey-text">Ver Detalles</span></a> 
+        {% endif %}
       </div>
     </div>
   </div>
@@ -39,10 +45,12 @@
     <div class="card blue-grey lighten-3">
       <div class="card-content black-text">
         <span class="card-title black-text"><strong>No hay libros disponibles</strong></span>
-        <p>En este momento no hay libros en la plataforma, pero puedes crear uno si quieres.</p>
+        <p>En este momento no hay libros en la plataforma, pero puedes <a href="">Iniciar sesion</a> y crear uno si quieres.</p>
       </div>
       <div class="card-action">
+        {% if  user.is_authenticated%}
         <a href="{% url 'crear' %}"><span class="blue-grey-text">Crear un libro</span></a>
+        {% endif %}
       </div>
     </div>
   </div>

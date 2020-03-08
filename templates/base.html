@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-    {% load staticfiles %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,17 +22,36 @@
         <!-- Menu principal -->
         <nav>
             <div class="nav-wrapper teal darken-1">
-                <a href="{% url 'index' %}" class="brand-logo">Bienvenido</a>
+                <a href="{% url 'libros' %}" class="brand-logo">Bienvenido</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li class="activate"><a href="{% url 'index' %}">Inicio</a></li>
-                    <li><a href="{% url 'crear' %}">Crear Libro</a></li>
+                    <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
+                    {% if user.is_authenticated %}
+                    
                     {# <!--definir inicio de sesion-->#}
+                    <li><a href="/libros" > Libros</a></li>
+                    <li><a href="/autor" > Autores</a></li>
                     <li><a href="" > Bienvenido {{ user.username | upper }}</a></li>
+                    <li><a href="" > Cerrar Sesion</a></li>
+                    {% else %}
+                    <li>
+                        <a  href="/login">Inicie Sesion</a>
+                      </li>
+                    {% endif %}
                 </ul>
                 <ul id="mobile-demo" class="side-nav">
-                    <li class="activate"><a href="{% url 'index' %}">Inicio</a></li>
-                    <li><a href="{% url 'crear' %}">Crear Libro</a></li>
+                    <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/libros" > Libros</a></li>
+                    <li><a href="/autor" > Autores</a></li>
+                    {# <!--definir inicio de sesion-->#}
+                    <li><a href="" > Bienvenido {{ user.username | upper }}</a></li>
+                    <li><a href="" > Cerrar Sesion</a></li>
+                    {% else %}
+                    <li>
+                        <a  href="/login">Inicie Sesion</a>
+                      </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

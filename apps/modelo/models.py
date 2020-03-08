@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
-
+from django.utils.safestring import mark_safe
 # Create your models here.
 class Genero(models.Model):
     genero_id= models.AutoField(primary_key=True)
@@ -41,16 +41,16 @@ class Libro(models.Model):
     libro_id = models.AutoField(primary_key = True)
     titulo = models.CharField(max_length=100, unique=True, null=False)
     # materia-campo = models.CharField(max_length=100, unique=True, null=False)
-    fechaPublicacion = models.DateField(
+    fechaPublicacion = models.DateField('Fecha de Publicacion',
         auto_now=False, auto_now_add=False, null=False)
-    numeroPaginas = models.IntegerField(null=False)
+    numeroPaginas = models.IntegerField('Numero de paginas',null=False)
     nombre_editorial=models.CharField('Editorial',max_length=100, null=True)
-    autor = models.ForeignKey(Autor, on_delete=models.SET_NULL, null=True)
+    autor = models.ForeignKey(Autor, on_delete=models.SET_NULL, null=True, help_text = mark_safe("Eliga el autor del libro"))
     descripcion = models.CharField(max_length=1000, help_text="Ingrese una breve descripción del libro")
     #editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
-    genero = models.ManyToManyField(Genero, help_text="Seleccione un genero para este libro")
-    isbn = models.CharField('ISBN',max_length=13, help_text='13 Caracteres <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
-    imagen = models.ImageField(upload_to="portadas/", null=True)
+    genero = models.ForeignKey(Genero, on_delete=models.SET_NULL,help_text="Seleccione un genero para este libro", null=True)
+    isbn = models.CharField('ISBN',max_length=13, help_text=mark_safe('13 Caracteres <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>'), unique=True)
+    imagen = models.ImageField(upload_to="imagenes/", null=True)
     resumen = models.TextField(blank=True)
 
     def __str__(self):
