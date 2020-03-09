@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 # Create your views here.
 """Listar todos los libros"""
+@login_required
 def listarlibros(request):
     lista = Libro.objects.all()
     context ={
@@ -17,6 +18,7 @@ def listarlibros(request):
     return render(request, 'libreria/listalibros.html', context)
 
 """Listar por id"""
+@login_required
 def detalle_libro(request, id):
 	libro = Libro.objects.get(libro_id=id)
     
@@ -28,7 +30,7 @@ def crearLibro(request):
 	formulario = FormularioLibro(request.POST, request.FILES)
 	#user
 	usuario = request.user
-	if usuario.groups.filter(name='administracion').exists():
+	if usuario.groups.filter(name='administracion').exists() or usuario.groups.filter(name='bibliotecario').exists():
 		if request.method == 'POST':
 			print("libro en espras")
 			formulario.is_valid(); print(formulario.errors) 
@@ -62,7 +64,7 @@ def actualizarLibro(request):
 	libroid = request.GET['id']
 	libro = Libro.objects.get(libro_id=libroid)
 	usuario = request.user
-	if usuario.groups.filter(name='administracion').exists():
+	if usuario.groups.filter(name='administracion').exists() or usuario.groups.filter(name='bibliotecario').exists():
 		if request.method == 'POST':
 			formulario = FormularioModificarLibro(request.POST, request.FILES)
 			if formulario.is_valid():

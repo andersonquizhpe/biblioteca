@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def listaGenero(request):
     usuario = request.user
-    if usuario.groups.filter(name='administracion'):
+    if usuario.groups.filter(name='administracion') or usuario.groups.filter(name='bibliotecario').exists():
         lista = Genero.objects.all().order_by('nombre')
         context = {
             'lista': lista
@@ -21,7 +21,7 @@ def listaGenero(request):
 def crearGenero(request):
     formulario = FormularioGenero(request.POST)
     usuario = request.user
-    if usuario.groups.filter(name='administracion').exists():
+    if usuario.groups.filter(name='administracion').exists() or usuario.groups.filter(name='bibliotecario').exists():
         if request.method == 'POST':
             if formulario.is_valid():
                 datos=formulario.cleaned_data
@@ -42,7 +42,7 @@ def updateGenero(request):
     generoid= request.GET['id']
     genero = Genero.objects.get(genero_id=generoid)
     usuario = request.user
-    if usuario.groups.filter(name='administracion').exists():
+    if usuario.groups.filter(name='administracion').exists() or usuario.groups.filter(name='bibliotecario').exists():
         if request.method == 'POST':
             formulario = FormularioGenero(request.POST)
             if formulario.is_valid():

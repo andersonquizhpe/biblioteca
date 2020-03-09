@@ -37,11 +37,12 @@
                         {% if group.name == 'administracion'  %}
                         <li><a href="/autor"> Autores</a></li>
                         <li><a href="/genero"> Generos</a></li>
-                        {% endif %}
+                        {% elif group.name == 'bibliotecario' %}
+                        <li><a href="/genero"> Generos</a></li>
+                        <li><a href="/libroins"> Prestamos</a></li>
+                        {%endif%}
+                        
                     {% endfor %}
-
-
-                    
                     <li><a href="/libros"> Libros</a></li>
                     <li><a href=""> Bienvenido {{ user.username | upper }}</a></li>
                     <li><a href="/logout"> Cerrar Sesion</a></li>
@@ -55,10 +56,13 @@
                     <li class="activate"><a href="{% url 'libros' %}">Inicio</a></li>
                     {% if user.is_authenticated %}
                     {% for group in user.groups.all %}
-                        {% if group.name == 'administracion'  %}
-                        <li><a href="/autor"> Autores</a></li>
-                        <li><a href="/genero"> Generos</a></li>
-                        {% endif %}
+                    {% if group.name == 'administracion'  %}
+                    <li><a href="/autor"> Autores</a></li>
+                    <li><a href="/genero"> Generos</a></li>
+                    {% elif group.name == 'bibliotecario' %}
+                    <li><a href="/genero"> Generos</a></li>
+                    <li><a href="/libroins"> Prestamos</a></li>
+                    {%endif%}
                     {% endfor %}
                     <li><a href="/libros"> Libros</a></li>
                     {# <!--definir inicio de sesion-->#}

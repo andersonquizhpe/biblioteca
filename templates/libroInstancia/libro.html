@@ -3,12 +3,12 @@
 <!--cargamos archivos estaticos-->
 {% load staticfiles %}
 <!--llenamos los huecos definidos en base.html-->
-{% block title %}Generos{% endblock title %}
-{% block section_name %}Generos{% endblock section_name %}
-{% block section_description %}Lista de Generos{% endblock section_description %}
+{% block title %}Prestamos {% endblock title %}
+{% block section_name %}!Prestamos¡{% endblock section_name %}
+{% block section_description %}Prestamos realizados{% endblock section_description %}
 
 {% block main %}
-<a href="/genero/crearGenero" style="text-decoration:none" class="btn btn-primary">Añadir Genero</a>
+<a href="" style="text-decoration:none" class="btn btn-primary">Nuevo Prestamo</a>
 <br>
 <br>
 
@@ -17,14 +17,9 @@
   <thead class="hoverable blue-grey lighten-3">
     <tr>
       <th>N°</th>
-      <th>Nombre</th>
-      {% if user.is_authenticated %}
-        {% for group in user.groups.all %}
-          {% if group.name == 'administracion'  %}
-            <th>Acciones</th>
-          {%endif%}
-        {% endfor %}
-      {% endif %}
+      <th>Libro</th>
+      <th>Prestado a:</th>
+      <th>Fecha</th>
     </tr>
   </thead>
   <tbody class="blue-grey lighten-5">

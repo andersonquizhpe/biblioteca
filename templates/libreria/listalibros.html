@@ -13,6 +13,8 @@
 {% for group in user.groups.all %}
 {% if group.name == 'administracion'  %}
 <a href="crear/" style="text-decoration:none" class="btn btn-primary">Añadir Libro</a>
+{% elif group.name == 'bibliotecario'%}
+<a href="crear/" style="text-decoration:none" class="btn btn-primary">Añadir Libro</a>
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -43,7 +45,9 @@
         {% for group in user.groups.all %}
         {% if group.name == 'administracion'  %}
         <a href="modificar?id={{libro.libro_id}}"><span class="blue-grey-text">Editar libro</span></a>
-        {% endif %}
+        {% elif group.name == 'bibliotecario' %}
+        <a href="modificar?id={{libro.libro_id}}"><span class="blue-grey-text">Editar libro</span></a>
+        {%endif%}
         {% endfor %}
 
         {% endif %}

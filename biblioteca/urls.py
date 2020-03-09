@@ -28,6 +28,7 @@ urlpatterns = [
     path('libros/', include('apps.libro.urls')),
     path('autor/', include('apps.autor.urls')),
     path('genero/', include('apps.genero.urls')),
+    path('libroins/', include('apps.libroInstancia.urls'))
     
 ]
 if settings.DEBUG:
