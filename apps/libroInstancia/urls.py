@@ -5,7 +5,10 @@ from django.contrib.auth.decorators import login_required
 
 from . import views
 urlpatterns = [
-    path('', views.crearLibroInstancia, name='libroins'), 
+    path('', views.listarPrestamos, name='libroins'),
+	path('crearIns/', views.crearLibroInstancia),
+	path(r'^modificar/(?P<uuid:id>)/$', views.updateLibroInstancia, name='modificar'),
+	 
 ]
 #urlpatterns = [
     

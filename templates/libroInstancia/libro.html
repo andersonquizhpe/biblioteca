@@ -4,56 +4,77 @@
 {% load staticfiles %}
 <!--llenamos los huecos definidos en base.html-->
 {% block title %}Prestamos {% endblock title %}
-{% block section_name %}!Prestamos¡{% endblock section_name %}
+{% block section_name %}¡ Prestamos !{% endblock section_name %}
 {% block section_description %}Prestamos realizados{% endblock section_description %}
 
 {% block main %}
-<a href="" style="text-decoration:none" class="btn btn-primary">Nuevo Prestamo</a>
+<a href="/libroins/crearIns" style="text-decoration:none" class="btn btn-primary">Nuevo Prestamo</a>
 <br>
 <br>
+{% if lista or listade %}
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a href="#test1" class="active">Prestamos</a></li>
+      <li class="tab col s3"><a class="active" href="#test2">Devueltos</a></li>
+    </ul>
+  </div>
+  <div id="test1" class="col s12">
+    <table class="hoverable" id="tablaGenero">
+      <thead class="hoverable blue-grey lighten-3">
+        <tr>
+          <th>N°</th>
+          <th>Libro</th>
+          <th>Prestado a:</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody class="blue-grey lighten-5">
+        {% for c in lista%}
+        <tr>
+          <td><a href="{% url 'modificar' id=c.libroinstancia_id%}">{{forloop.counter}}</a></td>
+          <td>{{c.libro.titulo}}</td>
+          <td>{{c.prestatario}}</td>
+          <td>{{c.fecha_devolucion}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+  <div id="test2" class="col s12">
 
-{% if lista %}
-<table class="hoverable" id="tablaGenero">
-  <thead class="hoverable blue-grey lighten-3">
-    <tr>
-      <th>N°</th>
-      <th>Libro</th>
-      <th>Prestado a:</th>
-      <th>Fecha</th>
-    </tr>
-  </thead>
-  <tbody class="blue-grey lighten-5">
-    {% for c in lista%}
-    <tr>
-      <td><a href="modificar?id={{c.genero_id}}">{{forloop.counter}}</a></td>
-      <td>{{c.nombre}}</td>
-      
-        {% if user.is_authenticated %}
-          {% for group in user.groups.all %}
-            {% if group.name == 'administracion'  %}
-              <td>
-              <button class="btn btn-danger" type="submit">
-              <a href="{% url 'deleteGenero' c.pk %}" onClick="return confirm('¿Seguro que quieres borrar el registro?');">
-                Eliminar
-              </a>
-              </button>
-            </td>
-            {%endif%}
-          {% endfor %}
-        {% endif %}
+    <table class="hoverable" id="tablaDevueltos">
+      <thead class="hoverable blue-grey lighten-3">
+        <tr>
+          <th>N°</th>
+          <th>Libro</th>
+          <th>Devuelto por:</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody class="blue-grey lighten-5">
+        {% for c in listade%}
+        <tr>
+          <td><a href="{% url 'modificar' id=c.libroinstancia_id%}">{{forloop.counter}}</a></td>
+          <td>{{c.libro.titulo}}</td>
+          <td>{{c.prestatario}}</td>
+          <td>{{c.fecha_devolucion}}</td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
 
-    
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
+  </div>
+</div>
+
+
 {% else %}
 
 <div class="row">
   <div class="col s12 m6 l6 offset-l3">
     <div class="card blue-grey lighten-3">
       <div class="card-content black-text">
-        <span class="card-title black-text"><strong>No se han registrado Generos</strong></span>
+        <span class="card-title black-text"><strong>No hay registros de Prestamos</strong></span>
       </div>
       <div class="card-action">
         {% if  user.is_authenticated%}

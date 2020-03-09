@@ -13,13 +13,13 @@
 <br>
 
 {% if lista %}
-<table class="hoverable table" id="tablaAutores">
+<table class="hoverable" id="tablaAutores">
   <thead class="hoverable blue-grey lighten-3">
     <tr>
       <th>N°</th>
       <th>Apellidos</th>
       <th>Nombres</th>
-      {#<th>Email</th>#}
+      <th>Email</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -29,11 +29,11 @@
       <td><a href="modificarAutor?id={{c.autor_id}}">{{forloop.counter}}</a></td>
       <td>{{c.apellido}}</td>
       <td>{{c.nombre}}</td>
-      {#{% if c.email != '' %}#}
-      {#<td>{{c.email}}</td>#}
-      {#{% else %}#}
-      {#<td>S/E</td>#}
-      {#{% endif %}#}
+      {% if c.email != '' %}
+      <td>{{c.email}}</td>
+      {% else %}
+      <td>S/E</td>
+      {% endif %}
       <td>
         <button class="btn btn-danger" type="submit">
           <a href="{% url 'eliminar' c.pk %}" onClick="return confirm('¿Seguro que quieres borrar el registro?');">

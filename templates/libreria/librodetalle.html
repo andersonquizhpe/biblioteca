@@ -46,7 +46,7 @@
     <div class="row">
       <div class="col l12 m12 s12 ">
         <h3>Resumen</h3>
-        <p>{{ object.resumen }}</p>
+        <p align="justify">{{ object.resumen }}</p>
       </div>
     </div>
     {% if user.is_authenticated %}
@@ -55,6 +55,10 @@
         <a href="{% url 'delete' object.pk %}" class="btn-floating waves-effect waves-light tooltipped teal darken-1"
         data-tooltip="Eliminar Libro" data-position="right"
         onClick="return confirm('¿Seguro que quieres borrar el registro?');"><i class="material-icons">delete</i></a>
+        {% elif group.name == 'bibliotecario' %}
+
+        <a href="/libroins/crearIns" class="btn-floating waves-effect waves-light tooltipped teal darken-1"
+        data-tooltip="Prestar libro" data-position="right"><i class="">Prestar</i></a>
         {% endif %}
       {% endfor %}
       {# solicitar #}

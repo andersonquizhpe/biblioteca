@@ -66,7 +66,7 @@ class LibroInstancia(models.Model):
     libroinstancia_id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="ID único para este libro particular en toda la biblioteca")
     libro = models.ForeignKey('Libro', on_delete=models.SET_NULL, null=True) 
     fecha_devolucion = models.DateField("Fecha ffin",null=True, blank=True, help_text = mark_safe("AAAA-MM-DD"))
-    prestatario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Prestado a:')
+    prestatario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Prestar a:')
     @property
     def is_overdue(self):
         if self.fecha_devolucion and date.today() > self.fecha_devolucion:
@@ -74,10 +74,8 @@ class LibroInstancia(models.Model):
         return False
 
     LOAN_STATUS = (
-        ('m', 'Mantenimiento'),
         ('p', 'En prestamo'),
-        ('d', 'Disponible'),
-        ('r', 'Reservado'),
+        ('d', 'Devuelto'),
     )
     estado = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Disponibilidad del libro')
     
